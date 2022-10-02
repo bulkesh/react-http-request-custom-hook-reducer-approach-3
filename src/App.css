@@ -20,7 +20,7 @@
   color: white;
 }
 .image-container {
-  max-width: 100px;
+  max-width: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@
 .image {
   max-width: 100%;
 }
-.news span {
+.news span, h3 {
   color: black;
   margin-left: 10px;
   display: block;

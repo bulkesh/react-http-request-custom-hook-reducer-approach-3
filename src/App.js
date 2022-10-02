@@ -5,7 +5,7 @@ import { NEWSCATEGORY } from './utils/enum'
 import useHttp from './hooks/use-http';
 
 function App() {
-  const apiURL = `${ENVRONMENT.apiUrl}${NEWSCATEGORY.NATIONAL}`;
+  const apiURL = `${ENVRONMENT.apiUrl}${NEWSCATEGORY.TECH}`;
   const { loading, error, data: resp } = useHttp(apiURL);
   useEffect(() => {
     console.log("app use effect loaded : ", ENVRONMENT);
@@ -31,11 +31,11 @@ function App() {
             <img className='image' src={news.imageUrl} alt={news.author} />
           </div>
           <div className='news'>
-            <span><b>Author : </b>{`${news.author}`}</span>
-            <span><b>Date : </b>{`${news.date}`}</span>
-            <span><b>Time : </b>{`${news.time}`}</span>
-            <span><b>Title : </b>{`${news.title}`}</span>
-            <span><b>Content : </b>{`${news.content}`}</span>
+            <h3>{`${news.title}`}</h3>
+            <span><b>Story by</b> {`${news.author} - ${news.time} on ${news.date}`}</span>
+            <span>{`${news.content}`}</span><br/>
+            <span>Read more at : <b><a href={news.readMoreUrl} target="_blank">ANI</a></b></span>
+            <span>Read  : <b><a href={news.url} target="_blank">inshorts</a></b></span>
           </div>
         </div>
       </div>
