@@ -1,0 +1,15 @@
+export const NEWSCATEGORY = {
+    TECH: 'technology',
+    All: 'all',
+    NATIONAL: 'national',
+    BUSINESS: 'business',
+    SPORTS: 'sports',
+    WORLD: 'world',
+    POLITICS: 'politics',
+    STARTUP: 'startup',
+    ENT: 'entertainment',
+    MIS: 'miscellaneous',
+    HATKE: 'hatke',
+    SCI: 'science',
+    AUTO: 'automobile',
+}
