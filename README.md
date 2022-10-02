@@ -1,5 +1,9 @@
 ## React - Reusable useHttp custom hook
 Reusable useHttp custom hook with reducer.
+API base URl, asstes url are taken dynamically from envronment file.
+Setup envronment files and taken host name and domain dynamically.
+### axios
+axios - is used to make http get call.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
