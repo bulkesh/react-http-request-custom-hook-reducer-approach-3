@@ -1,0 +1,29 @@
+.select-container {
+  display: block;
+  position: relative;
+}
+
+.select-container label {
+  font-size: 1.17em;
+  font-weight: bold;
+}
+.filter-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.select {
+  background-color: transparent;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  margin: 0;
+  width: 50%;
+  max-width: 200px;
+  cursor: pointer;
+  border: 1px solid rgb(154, 152, 152);
+  font-family: inherit;
+  font-weight:500;
+  font-size: inherit;
+  line-height: 1.1;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}

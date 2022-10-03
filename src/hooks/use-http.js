@@ -28,17 +28,25 @@ const recuder = (state, { type, payload }) => {
 const useHttp = (url) => {
     const [state, dispatch] = useReducer(recuder, initialState);
 
-    useEffect(() => {
+    const sendRequest = useCallback((url, applyData) => {
         dispatch({ type: ACTIONS.API_REQUEST });
-        axios.get(url).then((response) => {
-            dispatch({ type: ACTIONS.FETCH_DATA, payload: response.data });
-        }).catch((err) => {
-            dispatch({ type: ACTIONS.ERROR, payload: err.error });
-        });
+        try {
+            axios.get(url).then((response) => {
+                dispatch({ type: ACTIONS.FETCH_DATA, payload: response.data });
+                console.log("response.data :",response.data);
+                applyData();
+            }).catch((err) => {
+                dispatch({ type: ACTIONS.ERROR, payload: err.error });
+                applyData();
+            });
+           
+        } catch (err) {
+            dispatch({ type: ACTIONS.ERROR, payload: err.message });
+            applyData();
+        }
 
-
-    }, [url])
-    return state;
+    })
+    return { ...state, sendRequest };
 }
 
 export default useHttp;
