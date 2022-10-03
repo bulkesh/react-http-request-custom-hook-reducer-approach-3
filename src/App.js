@@ -1,17 +1,41 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import './App.css';
 import { ENVRONMENT } from './environments/environment';
 import { NEWSCATEGORY } from './utils/enum'
 import useHttp from './hooks/use-http';
+import Select from './components/shared/Select';
+import Card from './components/shared/Card';
+import News from './components/News';
 
 function App() {
-  const apiURL = `${ENVRONMENT.apiUrl}${NEWSCATEGORY.TECH}`;
-  const { loading, error, data: resp } = useHttp(apiURL);
-  useEffect(() => {
-    console.log("app use effect loaded : ", ENVRONMENT);
-    console.log("NEWSCATEGORY : ", NEWSCATEGORY);
+  const apiBaseUrl = ENVRONMENT.apiUrl;
+  const defaultCategory = NEWSCATEGORY.All;
+  let selectedCategory = '';
+  let apiURL = '';
+  const { loading, error, data: resp, sendRequest: fetchNews } = useHttp();
 
+  // call back method - called from useHttp when API call done.
+  const fetchNewsHandler = useCallback(() => {
+    console.log("Fetch news handler called...", resp);
+  })
+
+  // Call API on any event e.i. Drop down select or any button click
+  const makeNewsCallback = useCallback(() => {
+    fetchNews(apiURL, fetchNewsHandler)
+  }, [fetchNews, apiURL, fetchNewsHandler]);
+
+  // Fetch news on page load with default catogery-all
+  useEffect(() => {
+    apiURL = `${apiBaseUrl}${defaultCategory}`;
+    fetchNews(apiURL, fetchNewsHandler)
   }, []);
+
+  // Drop down categories change handler
+  const onChangeHandler = useCallback((evt) => {
+    selectedCategory = evt.target.value;
+    apiURL = `${apiBaseUrl}${selectedCategory}`;
+    makeNewsCallback()
+  }, [makeNewsCallback])
 
   let element;
   if (loading) {
@@ -24,26 +48,14 @@ function App() {
     element = <h3>News not found.</h3>
   }
   if (resp && resp.data && resp.data.length > 0) {
-    element = resp.data.map((news, index) => (
-      <div key={news.id} className='news-container'>
-        <div className='news-list'>
-          <div className='image-container'>
-            <img className='image' src={news.imageUrl} alt={news.author} />
-          </div>
-          <div className='news'>
-            <h3>{`${news.title}`}</h3>
-            <span><b>Story by</b> {`${news.author} - ${news.time} on ${news.date}`}</span>
-            <span>{`${news.content}`}</span><br/>
-            <span>Read more at : <b><a href={news.readMoreUrl} target="_blank">ANI</a></b></span>
-            <span>Read  : <b><a href={news.url} target="_blank">inshorts</a></b></span>
-          </div>
-        </div>
-      </div>
-    ));
+    element = <News className='container' newsList={resp.data} />
+
   }
   return (
     <div className="App">
-      <h2>Custom Hook useHttp (with reducer)</h2>
+      <h2>Top News Headlines (Bulkesh Kumawat)</h2>
+      <h3>React: Custom Hook useHttp (With Reducer)</h3>
+      <Select className='container' catagory={NEWSCATEGORY} onChange={onChangeHandler} />
       {element}
     </div>
   );

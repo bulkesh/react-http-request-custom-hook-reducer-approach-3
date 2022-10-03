@@ -1,36 +1,9 @@
 .App {
   text-align: center;
 }
-.news-container {
+
+.container {
   max-width: 60rem;
   width: 90%;
   margin: 2rem auto;
-  animation: meal-appear 1s ease-out forwards;
-}
-
-.news-list {
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem;
-  padding: 1rem;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 12px;
-  text-align: center;
-  color: white;
-}
-.image-container {
-  max-width: 250px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.image {
-  max-width: 100%;
-}
-.news span, h3 {
-  color: black;
-  margin-left: 10px;
-  display: block;
-  text-align: left;
 }
